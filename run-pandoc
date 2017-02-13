@@ -1,0 +1,14 @@
+#!/bin/bash
+
+set -e
+
+export HUB_USER_NAME=parana
+
+echo "•••••••••••••••••••••••••••••••••••••••"
+docker ps -a --format "table {{.Names}}\t{{.ID}}" | sort
+
+docker run -i -t -h pandoc.local --rm \
+       -p 30022:22 \
+       -v $PWD/tmp:/tmp/transfer_area \
+       --name pandoc \
+       $HUB_USER_NAME/pandoc
